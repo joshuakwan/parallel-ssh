@@ -42,6 +42,8 @@ def option_parser():
             help='read from standard input and send as input to ssh')
     parser.add_option('-P', '--print', dest='print_out', action='store_true',
             help='print output as we get it')
+    parser.add_option('-F', dest='config_file',
+            help='specify SSH config file')
 
     return parser
 
@@ -79,6 +81,8 @@ def do_pssh(hosts, cmdline, opts):
             cmd += ['-l', user]
         if port:
             cmd += ['-p', port]
+        if opts.config_file:
+            cmd += ['-F', opts.config_file]
         if opts.extra:
             cmd.extend(opts.extra)
         if cmdline:
